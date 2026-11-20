@@ -31,7 +31,10 @@ self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
   // Ouverture de l'app (avec ou sans ?paramètres / #route) → le jeu en cache.
-  if (req.mode === 'navigate') {
+  // Seulement à la racine : les autres pages du site (ex. /guide/) restent servies par le réseau.
+  const path = new URL(req.url).pathname;
+  const root = new URL(self.registration.scope).pathname;
+  if (req.mode === 'navigate' && (path === root || path === root + 'index.html')) {
     event.respondWith(caches.match('./index.html', { cacheName: CACHE }).then((hit) => hit || fetch(req)));
     return;
   }

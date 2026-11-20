@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Guide des parents · Math Adventure</title>
+<style>
+  @font-face { font-family: 'Andika'; font-weight: 400; font-display: swap; src: url('fonts/andika-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Andika'; font-weight: 700; font-display: swap; src: url('fonts/andika-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Baloo 2'; font-weight: 800; font-display: swap; src: url('fonts/baloo-2-latin-800-normal.woff2') format('woff2'); }
+
+  /* Jetons de l'app (src/styles/tokens.css) */
+  :root {
+    --ink: #1b2a4a; --ink-soft: #4a5b7a; --white: #fff;
+    --sky-50: #eaf5ff; --sky-100: #d6ecff; --sky-top: #9fd6fb; --sky-600: #1a73c8; --sky-800: #0f4f8c;
+    --coral-600: #d9412f; --border: #d3e3f5;
+    --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px;
+    --radius: 20px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: var(--ink); background: linear-gradient(180deg, var(--sky-top) 0, var(--sky-50) 420px, var(--white) 100%) no-repeat, var(--white);
+    font: 400 18px/1.55 'Andika', system-ui, sans-serif;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: var(--s-7) var(--s-4) var(--s-7); }
+  header { max-width: 640px; }
+  .kicker { margin: 0; color: var(--sky-600); font-weight: 700; font-size: 16px; letter-spacing: .02em; }
+  h1 { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: clamp(36px, 7vw, 56px); line-height: 1.05; margin: var(--s-2) 0 var(--s-4); }
+  .lead { margin: 0; color: var(--ink-soft); max-width: 60ch; }
+
+  .start { margin: var(--s-5) 0 0; padding: var(--s-3) var(--s-4); border-left: 5px solid var(--coral-600); background: var(--white); border-radius: 0 12px 12px 0; max-width: 640px; }
+  .start strong { color: var(--coral-600); }
+
+  ol { list-style: none; padding: 0; margin: var(--s-7) 0 0; display: grid; gap: var(--s-6) var(--s-5); grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  li { display: flex; flex-direction: column; gap: var(--s-3); }
+  video {
+    width: 100%; aspect-ratio: 9 / 16; display: block; border-radius: var(--radius); background: var(--sky-100);
+    box-shadow: 0 14px 32px rgba(15, 79, 140, .16);
+  }
+  .num { font: 800 15px 'Baloo 2', sans-serif; color: var(--sky-600); }
+  h2 { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 26px; line-height: 1.15; margin: 0; }
+  li p { margin: 0; color: var(--ink-soft); font-size: 17px; }
+  .meta { font-size: 15px; color: var(--ink-soft); }
+  a.dl { color: var(--sky-800); font-weight: 700; }
+  a.dl:focus-visible, video:focus-visible { outline: 3px solid var(--sky-600); outline-offset: 3px; }
+
+  footer { margin-top: var(--s-7); padding-top: var(--s-5); border-top: 1px solid var(--border); color: var(--ink-soft); font-size: 16px; max-width: 640px; }
+
+  @media (max-width: 480px) {
+    .wrap { padding-top: var(--s-6); }
+    ol { gap: var(--s-6); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">Math Adventure · du CI au CM2</p>
+    <h1>Guide des parents</h1>
+    <p class="lead">Cinq vidéos courtes, d’une minute environ, pour installer l’application, créer le profil de votre enfant et suivre ses progrès. Le son est conseillé, mais tout est aussi écrit à l’écran.</p>
+    <p class="start"><strong>Pour commencer :</strong> regardez les vidéos 1 et 2. Les autres peuvent attendre que votre enfant ait joué quelques jours.</p>
+  </header>
+
+  <ol>
+    <li>
+      <video src="01-installer.mp4" poster="posters/01-installer.jpg" controls preload="none" playsinline></video>
+      <span class="num">Vidéo 1</span>
+      <h2>Installer l’application</h2>
+      <p>Sur Android avec Chrome, et sur iPhone avec Safari. Ensuite, elle marche sans internet.</p>
+      <span class="meta">40 s · <a class="dl" href="01-installer.mp4" download>Télécharger la vidéo</a></span>
+    </li>
+    <li>
+      <video src="02-creer-le-profil.mp4" poster="posters/02-creer-le-profil.jpg" controls preload="none" playsinline></video>
+      <span class="num">Vidéo 2</span>
+      <h2>Créer le profil de l’enfant</h2>
+      <p>Prénom, animal et classe : les jeux s’adaptent à son niveau. Un profil par enfant.</p>
+      <span class="meta">42 s · <a class="dl" href="02-creer-le-profil.mp4" download>Télécharger la vidéo</a></span>
+    </li>
+    <li>
+      <video src="03-une-seance.mp4" poster="posters/03-une-seance.jpg" controls preload="none" playsinline></video>
+      <span class="num">Vidéo 3</span>
+      <h2>Une séance de jeu</h2>
+      <p>Choisir un jeu, régler la difficulté, les indices de Tim, la note sur 10.</p>
+      <span class="meta">1 min 04 · <a class="dl" href="03-une-seance.mp4" download>Télécharger la vidéo</a></span>
+    </li>
+    <li>
+      <video src="04-suivre-les-progres.mp4" poster="posters/04-suivre-les-progres.jpg" controls preload="none" playsinline></video>
+      <span class="num">Vidéo 4</span>
+      <h2>Suivre les progrès</h2>
+      <p>L’Espace parent : parties jouées, note moyenne, domaines réussis et à travailler.</p>
+      <span class="meta">57 s · <a class="dl" href="04-suivre-les-progres.mp4" download>Télécharger la vidéo</a></span>
+    </li>
+    <li>
+      <video src="05-sauvegarder.mp4" poster="posters/05-sauvegarder.jpg" controls preload="none" playsinline></video>
+      <span class="num">Vidéo 5</span>
+      <h2>Sauvegarder les progrès</h2>
+      <p>Exporter une copie, la récupérer sur un nouveau téléphone, et les boutons qui effacent.</p>
+      <span class="meta">49 s · <a class="dl" href="05-sauvegarder.mp4" download>Télécharger la vidéo</a></span>
+    </li>
+  </ol>
+
+  <footer>
+    Pour envoyer une vidéo par WhatsApp, partagez directement le fichier .mp4 de ce dossier : chacune pèse moins de 3 Mo.
+  </footer>
+</div>
+<script>
+  // Une seule vidéo joue à la fois
+  document.addEventListener('play', (e) => {
+    for (const v of document.querySelectorAll('video')) if (v !== e.target) v.pause();
+  }, true);
+</script>
+</body>
+</html>
