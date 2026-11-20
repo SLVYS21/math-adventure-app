@@ -1,20 +1,51 @@
 // Math Adventure — service worker (généré au build, ne pas éditer)
-const CACHE = 'math-adventure-af4b0e34';
+const CACHE = 'math-adventure-6e48c6ca';
 const FILES = ["./","./index.html","./manifest.webmanifest","./icon.svg","./icon-192.png","./icon-512.png","./apple-touch-icon.png"];
 
+// Taille réelle de index.html (octets décodés), écrite au build : sert à afficher le % de téléchargement.
+const INDEX_BYTES = 16820721;
+
+// Prévient les pages ouvertes (même pas encore contrôlées) : barre « Prêt sans internet » de l'accueil.
+async function notify(msg) {
+  const list = await self.clients.matchAll({ includeUncontrolled: true, type: 'window' });
+  for (const c of list) c.postMessage({ type: 'ma-offline', ...msg });
+}
+
 // Corps lu en entier avant l'écriture : cache.add() en flux échoue (« network error »)
-// sur le index.html de ~12 Mo dans Chromium/Edge.
+// sur le gros index.html dans Chromium/Edge. Lecture par morceaux pour compter les octets.
 async function precache(cache, file) {
   const res = await fetch(new Request(file, { cache: 'reload' }));
   if (!res.ok) throw new Error(file + ' : HTTP ' + res.status);
-  const body = await res.arrayBuffer();
-  await cache.put(file, new Response(body, { status: 200, headers: { 'Content-Type': res.headers.get('Content-Type') || '' } }));
+  const type = res.headers.get('Content-Type') || '';
+  let body;
+  if (file === './index.html' && res.body && INDEX_BYTES > 0) {
+    const reader = res.body.getReader();
+    const chunks = [];
+    let loaded = 0, last = 0;
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      chunks.push(value);
+      loaded += value.byteLength;
+      const now = Date.now();
+      if (now - last > 250) { last = now; notify({ state: 'progress', p: Math.min(0.99, loaded / INDEX_BYTES) }); }
+    }
+    body = await new Blob(chunks).arrayBuffer();
+  } else {
+    body = await res.arrayBuffer();
+  }
+  await cache.put(file, new Response(body, { status: 200, headers: { 'Content-Type': type } }));
 }
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE)
       .then(async (cache) => { for (const f of FILES) await precache(cache, f); })
+      .catch(async (err) => {
+        await caches.delete(CACHE);
+        await notify({ state: 'error' });
+        throw err;
+      })
       .then(() => self.skipWaiting()),
   );
 });
@@ -23,7 +54,8 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
       .then((keys) => Promise.all(keys.filter((k) => k.startsWith('math-adventure-') && k !== CACHE).map((k) => caches.delete(k))))
-      .then(() => self.clients.claim()),
+      .then(() => self.clients.claim())
+      .then(() => notify({ state: 'ready' })),
   );
 });
 
