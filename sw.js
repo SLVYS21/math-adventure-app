@@ -1,9 +1,9 @@
 // Math Adventure — service worker (généré au build, ne pas éditer)
-const CACHE = 'math-adventure-13ed0d93';
+const CACHE = 'math-adventure-b1807303';
 const FILES = ["./","./index.html","./manifest.webmanifest","./icon.svg","./icon-192.png","./icon-512.png","./apple-touch-icon.png"];
 
 // Taille réelle de index.html (octets décodés), écrite au build : sert à afficher le % de téléchargement.
-const INDEX_BYTES = 16859776;
+const INDEX_BYTES = 17633465;
 
 // Prévient les pages ouvertes (même pas encore contrôlées) : barre « Prêt sans internet » de l'accueil.
 async function notify(msg) {
